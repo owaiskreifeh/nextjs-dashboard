@@ -10,8 +10,10 @@ const bcrypt = require('bcrypt');
 async function seedUsers(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    await client.sql`DROP TABLE IF EXISTS users`
     // Create the "users" table if it doesn't exist
     const createTable = await client.sql`
+    
       CREATE TABLE IF NOT EXISTS users (
         id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
@@ -50,8 +52,10 @@ async function seedInvoices(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
+    await client.sql`DROP TABLE IF EXISTS invoices`
     // Create the "invoices" table if it doesn't exist
     const createTable = await client.sql`
+    
     CREATE TABLE IF NOT EXISTS invoices (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     customer_id UUID NOT NULL,
@@ -90,8 +94,10 @@ async function seedCustomers(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
+    await client.sql`DROP TABLE IF EXISTS customers`
     // Create the "customers" table if it doesn't exist
     const createTable = await client.sql`
+    
       CREATE TABLE IF NOT EXISTS customers (
         id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
@@ -127,8 +133,10 @@ async function seedCustomers(client) {
 
 async function seedRevenue(client) {
   try {
+    await client.sql`DROP TABLE IF EXISTS revenue`
     // Create the "revenue" table if it doesn't exist
     const createTable = await client.sql`
+    
       CREATE TABLE IF NOT EXISTS revenue (
         month VARCHAR(4) NOT NULL UNIQUE,
         revenue INT NOT NULL
